@@ -9,9 +9,11 @@
     </head>
     <body>
         <!-- Navbar -->
-        <nav class="navbar navbar-expand-sm navbar-dark" style="background-color:rgb(9,96,174);">
+       <nav class="navbar navbar-expand-sm navbar-dark" style="background-color:rgb(9,96,174);">
             <div class="container-fluid">
-                <a class="navbar-brand" href="index.php">Logo Empresa Cualquiera</a>
+                <a class="navbar-brand" href="index.php">
+                    <img src="img/Company.png" alt="Empresa" width="60">
+                </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -22,7 +24,7 @@
                             <ul class="dropdown-menu">
                                 <li><a class="dropdown-item" href="empresa.php">Quienes somos</a></li>
                                 <li><a class="dropdown-item" href="contacto.php">Nuestro equipo</a></li>
-                                <li><a class="dropdown-item" href="servicios.php">Mision</a></li>
+                                <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#modalMision">Misión</a></li>
                             </ul>
                         </li>
                         <li class="nav-item">
@@ -41,13 +43,68 @@
         </nav>
 
         <!-- Container -->
-        <div class="container-fluid" style="background-color:#8fbfec;">
-        Hola servicios<br>
-            <a href="index.php">Ir a Principal</a><br>
-            <a href="empresa.php">Ir a Empresa</a><br>
-            <a href="productos.php">Ir a Productos</a><br>
-            <a href="servicios.php">Ir a Servicios</a><br>
-            <a href="contacto.php">Ir a Contacto</a><br>
+         <!-- Sección Servicios -->
+        <div class="container-fluid py-5"
+             style="background-color:#8fbfec;">
+
+            <!-- Título -->
+            <h1 class="text-center mb-3">
+                Nuestros Servicios
+            </h1>
+
+            <!-- Descripción -->
+            <p class="text-center mb-5">
+                Contamos con diferentes servicios para facilitar
+                la entrega y distribución de nuestros productos.
+            </p>
+
+
+            <!-- Fila de servicios -->
+            <div class="row justify-content-center">
+                <!-- Servicio Delivery -->
+                <div class="col-md-5 mb-4">
+                    <div class="card h-100 text-center shadow">
+                        <div class="card-body">
+                            <h3 class="card-title">
+                                Delivery
+                            </h3>
+                            <p class="card-text">
+                                Contamos con servicio de delivery para
+                                realizar entregas directamente en el
+                                domicilio de nuestros clientes.
+                            </p>
+                            <p class="card-text">
+                                Nuestro objetivo es proporcionar una
+                                entrega rápida, cómoda y segura para
+                                que puedas recibir tus productos sin
+                                necesidad de trasladarte.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Servicio Empaquetamiento -->
+                <div class="col-md-5 mb-4">
+                    <div class="card h-100 text-center shadow">
+                        <div class="card-body">
+                            <h3 class="card-title">
+                                Empaquetamiento y Despacho
+                            </h3>
+                            <p class="card-text">
+                                Preparamos cuidadosamente cada pedido
+                                para proteger los productos durante
+                                todo el proceso de transporte.
+                            </p>
+                            <p class="card-text">
+                                Además, gestionamos el despacho hacia
+                                distintas regiones del país, procurando
+                                que cada pedido llegue en óptimas
+                                condiciones a su destino.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         <!-- Footer -->
         <div class="container-fluid" style="background-color:rgb(9,96,174);">
@@ -70,7 +127,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
 
-                <!-- Modal body -->
+                 <!-- Modal body -->
                 <div class="modal-body">
                     hola :)
                     <form action="empresa.php">
@@ -96,6 +153,37 @@
                     <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
                 </div>
 
+                </div>
+            </div>
+        </div>
+
+         
+         <!-- MODAL MISIÓN -->
+   
+
+        <div class="modal fade" id="modalMision">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <!-- Encabezado del modal -->
+                    <div class="modal-header">
+                        <h4 class="modal-title">
+                            Nuestra Misión
+                        </h4><button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+
+
+                    <!-- Contenido de la misión -->
+                    <div class="modal-body">
+                        <p>
+                            Contribuir a la nutrición, salud y bienestar
+                            de las personas, poniendo a su disposición
+                            productos de la más alta calidad.
+                        </p>
+                    </div>
+                    <!-- Botón cerrar -->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cerrar</button>
+                    </div>
                 </div>
             </div>
         </div>
