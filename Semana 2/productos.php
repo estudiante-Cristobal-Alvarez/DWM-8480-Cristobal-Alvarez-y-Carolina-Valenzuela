@@ -11,7 +11,9 @@
         <!-- Navbar -->
         <nav class="navbar navbar-expand-sm navbar-dark" style="background-color:rgb(9,96,174);">
             <div class="container-fluid">
-                <a class="navbar-brand" href="index.php">Logo Empresa Cualquiera</a>
+                <a class="navbar-brand" href="index.php">
+                    <img src="img/Company.png" alt="Empresa" width="60">
+                </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -22,7 +24,7 @@
                             <ul class="dropdown-menu">
                                 <li><a class="dropdown-item" href="empresa.php">Quienes somos</a></li>
                                 <li><a class="dropdown-item" href="contacto.php">Nuestro equipo</a></li>
-                                <li><a class="dropdown-item" href="servicios.php">Mision</a></li>
+                                <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#modalMision">Misión</a></li>
                             </ul>
                         </li>
                         <li class="nav-item">
@@ -55,15 +57,28 @@
 
                 <!-- The slideshow/carousel -->
                 <div class="carousel-inner">
+
+                    <!-- Primera imagen -->
                     <div class="carousel-item active">
-                    <img src="img/la.jpg" alt="Los Angeles" class="d-block w-100">
+                        <div class="d-flex justify-content-center align-items-center">
+                            <img src="img/Bebestibles.png" alt="Bebestibles" class="d-block" width="300">
+                        </div>
                     </div>
+
+                    <!-- Segunda imagen -->
                     <div class="carousel-item">
-                    <img src="img/chicago.jpg" alt="Chicago" class="d-block w-100">
+                        <div class="d-flex justify-content-center align-items-center">
+                            <img src="img/Frutas.png" alt="Frutas" class="d-block" width="300">
+                        </div>
                     </div>
+
+                    <!-- Tercera imagen -->
                     <div class="carousel-item">
-                    <img src="img/ny.jpg" alt="New York" class="d-block w-100">
+                        <div class="d-flex justify-content-center align-items-center">
+                            <img src="img/Verduras.png" alt="Verduras" class="d-block" width="300">
+                        </div>
                     </div>
+
                 </div>
 
                 <!-- Left and right controls/icons -->
@@ -95,7 +110,6 @@
                     <h4 class="modal-title">Acceder</h4>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
-
                 <!-- Modal body -->
                 <div class="modal-body">
                     hola :)
@@ -122,6 +136,38 @@
                     <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
                 </div>
 
+                </div>
+            </div>
+        </div>
+
+         
+         <!-- MODAL MISIÓN -->
+   
+
+        <div class="modal fade" id="modalMision">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <!-- Encabezado del modal -->
+                    <div class="modal-header">
+                        <h4 class="modal-title">
+                            Nuestra Misión
+                        </h4><button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+
+
+                    <!-- Contenido de la misión -->
+                    <div class="modal-body">
+                        <p>
+                            Contribuir a la nutrición, salud y bienestar
+                            de las personas, poniendo a su disposición
+                            productos de la más alta calidad.
+                        </p>
+                    </div>
+
+                    <!-- Botón cerrar -->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cerrar</button>
+                    </div>
                 </div>
             </div>
         </div>
