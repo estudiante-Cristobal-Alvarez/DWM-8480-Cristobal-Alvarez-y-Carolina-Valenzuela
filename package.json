@@ -4,7 +4,8 @@
   "description": "Cristóbal Álvarez\r Carolina Valenzuela\r Repositorio en vigencia, el cambio se hizo del repositorio Cristobal/Carolina al actual repositorio DWM-8480-Cristobal-Alvarez-y-Carolina-Valenzuela",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server js"
   },
   "repository": {
     "type": "git",
@@ -17,5 +18,12 @@
   "bugs": {
     "url": "https://github.com/estudiante-Cristobal-Alvarez/DWM-8480-Cristobal-Alvarez-y-Carolina-Valenzuela/issues"
   },
-  "homepage": "https://github.com/estudiante-Cristobal-Alvarez/DWM-8480-Cristobal-Alvarez-y-Carolina-Valenzuela#readme"
+  "homepage": "https://github.com/estudiante-Cristobal-Alvarez/DWM-8480-Cristobal-Alvarez-y-Carolina-Valenzuela#readme",
+  "dependencies": {
+    "apollo-server-express": "^3.13.0",
+    "cors": "^2.8.6",
+    "express": "^5.2.1",
+    "graphql": "^17.0.2",
+    "mongoose": "8.17.1"
+  }
 }
