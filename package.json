@@ -1,0 +1,21 @@
+{
+  "name": "dwm-8480-cristobal-alvarez-y-carolina-valenzuela",
+  "version": "1.0.0",
+  "description": "Cristóbal Álvarez\r Carolina Valenzuela\r Repositorio en vigencia, el cambio se hizo del repositorio Cristobal/Carolina al actual repositorio DWM-8480-Cristobal-Alvarez-y-Carolina-Valenzuela",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/estudiante-Cristobal-Alvarez/DWM-8480-Cristobal-Alvarez-y-Carolina-Valenzuela.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/estudiante-Cristobal-Alvarez/DWM-8480-Cristobal-Alvarez-y-Carolina-Valenzuela/issues"
+  },
+  "homepage": "https://github.com/estudiante-Cristobal-Alvarez/DWM-8480-Cristobal-Alvarez-y-Carolina-Valenzuela#readme"
+}
