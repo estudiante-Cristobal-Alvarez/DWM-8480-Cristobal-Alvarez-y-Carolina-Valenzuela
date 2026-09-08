@@ -1,28 +1,41 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const cors = require('cors');
 
-const {ApolloServer, gql} = require('apollo-server-express');
+const { ApolloServer, gql } = require('apollo-server-express');
 const Usuario = require('./models/usuario');
 
-mongoose.connect('mongodb://localhost:27017/bdunab2');
-const typDefs = gql`
+const app = express();
+
+mongoose.connect('mongodb://127.0.0.1:27017/bdunab2')
+    .then(() => {
+        console.log('MongoDB conectado');
+    })
+    .catch((error) => {
+        console.log('Error al conectar MongoDB:');
+        console.log(error);
+    });
+
+const typeDefs = gql`
     type Usuario {
         id: ID!
         nombre: String!
         pass: String!
     }
+
     input UsuarioInput {
         nombre: String!
         pass: String!
     }
+
     type Alert {
-        message: String 
+        message: String
     }
+
     type Query {
         getUsuarios: [Usuario]
         getUsuariosById(id: ID!): Usuario
     }
+
     type Mutation {
         addUsuario(input: UsuarioInput): Usuario
         updateUsuario(id: ID!, input: UsuarioInput): Usuario
@@ -32,57 +45,72 @@ const typDefs = gql`
 
 const resolvers = {
     Query: {
-        async getUsuarios(obj) {
+        async getUsuarios() {
             const usuarios = await Usuario.find();
             return usuarios;
         },
-        async getUsuariosById(obj, {id}) {
+
+        async getUsuariosById(obj, { id }) {
             const usuario = await Usuario.findById(id);
-            if (usuarioBus == null) {
+
+            if (usuario == null) {
                 return null;
-            } else {
-                return usuario;
             }
+
+            return usuario;
         }
     },
+
     Mutation: {
-        async addUsuario(obj, {input}) {
+        async addUsuario(obj, { input }) {
             const usuario = new Usuario(input);
+
             await usuario.save();
+
             return usuario;
         },
-        async updateUsuario(obj, {id, input}) {
-            const usuario = await Usuario.findByIdAndUpdate(id, input);
+
+        async updateUsuario(obj, { id, input }) {
+            const usuario = await Usuario.findByIdAndUpdate(
+                id,
+                input,
+                { new: true }
+            );
+
             return usuario;
         },
-        async delUsuario(obj, {id}) {
+
+        async delUsuario(obj, { id }) {
             await Usuario.findByIdAndDelete(id);
+
             return {
                 message: 'Usuario eliminado'
             };
         }
     }
-};    
-
-let apolloServer = null;
-const corsOptions = {
-    origin: 'http://localhost:8090',
-    credentials: false
 };
 
 async function startServer() {
-    apolloServer = new ApolloServer({
-        typeDefs: typDefs,
-        resolvers: resolvers,
-        cors: corsOptions
+    const apolloServer = new ApolloServer({
+        typeDefs,
+        resolvers
     });
-    await apolloServer.start();
-    apolloServer.applyMiddleware({app, path: false});
-}
-startServer();
 
-const app = express();
-app.use(cors());
-app.listen(8090, function() {
-    console.log('GraphQL iniciado');
-});
+    await apolloServer.start();
+
+    apolloServer.applyMiddleware({
+        app,
+        path: '/graphql',
+        cors: {
+            origin: 'https://studio.apollographql.com',
+            credentials: false
+        }
+    });
+
+    app.listen(8090, () => {
+        console.log('GraphQL iniciado');
+        console.log('Servidor: http://localhost:8090/graphql');
+    });
+}
+
+startServer();
