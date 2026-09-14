@@ -8,7 +8,7 @@ from motor.motor_asyncio import AsyncIOMotorClient
 from bson import ObjectId
 from contextlib import asynccontextmanager
 
-#Cpmfiguracion BD mongodb
+#Configuracion BD mongodb
 MONGODB_URI = "mongodb://localhost:27017"
 DB_NAME = "bdunab2"
 COLL_NAME = "items"
@@ -80,6 +80,29 @@ async def crear_item(item: ItemIn):
     doc = await coll.find_one({"_id": res.inserted_id})
     return doc_to_itemout(doc)
 
+
+#Endpoint para contar items activos
+@app.get("/items/activos", response_model=int, status_code=200, tags=["items"])
+async def contar_items_activos():
+    cursor = coll.find({"activo": True})
+
+    items: List[ItemOut] = []
+
+    async for doc in cursor:
+        items.append(doc_to_itemout(doc))
+    return len(items)
+
+# Buscar items por tag
+@app.get("/items/tag/{tag}", response_model=List[ItemOut], status_code=200, tags=["items"])
+async def buscar_productos_por_tag(tag: str):
+    query ={
+        "tags": tag
+    }
+    cursor = coll.find(query)
+    items: List[ItemOut] = []
+    async for doc in cursor:
+        items.append(doc_to_itemout(doc))
+    return items
 
 #localhost:8098/items/2(parámetro de ruta)
 @app.get("/items/{item_id}", response_model=ItemOut, status_code=200)
