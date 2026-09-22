@@ -50,17 +50,17 @@ const productos = [
     },
     {
         id: "baguetin-rustico",
-        nombre: "Baguetín Rústico Granel",
+        nombre: "Baguetin Rustico Granel",
         categoria: "panaderia",
         precio: 3490,
-        imagen: "img/panes/Pan Baguetín Rústico Granel 3690 x kg.png"
+        imagen: "img/panes/Pan Baguetin Rustico Granel 3690 x kg.png"
     },
     {
         id: "baguette-rustico",
-        nombre: "Baguette Rústico Tradicional",
+        nombre: "Baguette Rustico Tradicional",
         categoria: "panaderia",
         precio: 4967,
-        imagen: "img/panes/Pan Baguette Rústico Tradicional 1 un. 4967 x kg.png"
+        imagen: "img/panes/Pan Baguette Rustico Tradicional 1 un. 4967 x kg.png"
     },
     {
         id: "bocado-dama",
@@ -176,10 +176,10 @@ const productos = [
     },
     {
         id: "pita-integral",
-        nombre: "Pita Integral Chía Linaza Granel",
+        nombre: "Pita Integral Chia Linaza Granel",
         categoria: "panaderia",
         precio: 3490,
-        imagen: "img/panes/Pan Pita Integral Chía Linaza Granel 3490 x kg.png"
+        imagen: "img/panes/Pan Pita Integral Chia Linaza Granel 3490 x kg.png"
     }
 ];
 
@@ -209,13 +209,13 @@ function mostrarProductos() {
     }
 
     if (categoria === "panaderia") {
-        titulo.textContent = "Panadería";
+        titulo.textContent = "Panaderia";
     } else if (categoria === "pasteleria") {
-        titulo.textContent = "Pastelería";
+        titulo.textContent = "Pasteleria";
     } else if (categoria === "facturas") {
         titulo.textContent = "Facturas";
     } else {
-        titulo.textContent = "Nuestros productos";
+        titulo.textContent = "Panaderia";
     }
 
     contenedor.innerHTML = "";
