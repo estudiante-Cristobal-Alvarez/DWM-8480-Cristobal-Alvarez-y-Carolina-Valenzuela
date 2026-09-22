@@ -358,7 +358,8 @@ function formatearPrecio(precio) {
 function rutaCatalogo(categoria) {
     if (categoria === "pasteleria") return "pasteleria.html";
     if (categoria === "facturas") return "bolleria.html";
-    return "productos.html?categoria=panaderia";
+    if (categoria === "panaderia") return "panaderia.html";
+    return "producto.html?categoria=panaderia";
 }
 
 function nombreCategoria(categoria) {
