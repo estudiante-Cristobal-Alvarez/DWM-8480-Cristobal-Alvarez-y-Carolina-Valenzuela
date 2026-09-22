@@ -52,4 +52,73 @@ El frontend cuenta actualmente con las siguientes características:
 
 ---
 
+## Interacción mediante URL
 
+Para la visualización de los productos se utiliza JavaScript junto con parámetros enviados mediante la URL.
+
+Por ejemplo:
+
+`producto.html?id=hamburguesa-brioche`
+
+JavaScript obtiene el identificador enviado en la URL y utiliza este valor para mostrar la información correspondiente al producto seleccionado.
+
+Esto permite reutilizar la página `producto.html` para mostrar diferentes productos sin necesidad de crear una página HTML independiente para cada uno.
+
+---
+
+## Mapa del sitio
+
+La navegación principal del frontend se encuentra organizada de la siguiente manera:
+
+```text
+Inicio
+│
+├── Panadería
+│   ├─ Catálogo de productos
+│   └─ Detalle del producto -> Volver al catálogo de Panadería
+│        
+│
+├── Pastelería
+│   ├─ Catálogo de productos
+│   └─ Detalle del producto -> Volver al catálogo de Pastelería
+│        
+│
+├── Facturas
+│   ├── Catálogo de productos
+│   └── Detalle del producto -> Volver al catálogo de Facturas
+|
+└── Contacto
+
+
+Frontend Dulce Hogar/
+│
+├── css/ -> Archivos de estilos
+│    
+│
+├── img/ -> Imágenes utilizadas por el sitio
+│    
+│
+├── js/ -> Archivos JavaScript
+│    
+│
+├── index.html
+├── panaderia.html
+├── pasteleria.html
+├── bolleria.html
+├── producto.html
+└── contacto.html
+
+
+Para la publicación mediante GitHub Pages se utiliza la carpeta:
+
+docs/
+│
+├── css/
+├── img/
+├── js/
+├── index.html
+├── panaderia.html
+├── pasteleria.html
+├── bolleria.html
+├── producto.html
+└── contacto.html
