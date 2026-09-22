@@ -563,3 +563,11 @@ footer p {
     }
 
 }
+
+.producto-imagen-detalle {
+    width: 100%;
+    max-height: 420px;
+    object-fit: contain;
+    background-color: #ffffff;
+    padding: 20px;
+}
