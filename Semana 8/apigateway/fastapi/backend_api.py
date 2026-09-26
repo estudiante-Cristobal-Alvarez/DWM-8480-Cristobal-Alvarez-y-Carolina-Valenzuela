@@ -44,3 +44,17 @@ def health():
         "status": "OK",
         "services": "Backend API"
     }
+
+@app.get(
+    "/products",
+    dependencies=[Depends(verify_gateway)]
+)
+
+def productos():
+    return {
+        "productos": [
+            {"id": 1, "nombre": "Notebook", "precio": 900000},
+            {"id": 2, "nombre": "Monitor", "precio": 250000}
+        ]
+    }
+    
