@@ -93,9 +93,11 @@ async def proxy(
     request: Request,
     auth=Depends(authenticate_client)
 ):
-    target_url = (
-        f"{BACKEND_URL}/{path}" # Call http://localhost_8000/api/products -> http://localhost:9000/products
-    )
+    if path.startswith("ordenes"):
+        target_url = f"{BACKEND_URL2}/{path}" # Call http://localhost_8000/api/products -> http://localhost:9000/products
+    else:
+        target_url = f"{BACKEND_URL}/{path}"
+        
     body = await request.body()
     gateway_headers ={
         "X-Gateway-Secret":
