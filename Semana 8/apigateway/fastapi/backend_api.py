@@ -53,8 +53,18 @@ def health():
 def productos():
     return {
         "productos": [
-            {"id": 1, "nombre": "Notebook", "precio": 900000},
-            {"id": 2, "nombre": "Monitor", "precio": 250000}
+            {
+                "id": 1,
+                "nombre": "Hamburguesa Brioche",
+                "categoria": "panaderia",
+                "precio": 3690
+            },
+            {
+                "id": 2,
+                "nombre": "Marraqueta Grande",
+                "categoria": "panaderia",
+                "precio": 2290
+            }
         ]
     }
     
