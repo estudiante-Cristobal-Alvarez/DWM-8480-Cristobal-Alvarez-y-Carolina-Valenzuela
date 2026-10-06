@@ -45,7 +45,15 @@ class IntrospectionRequest(BaseModel):
     token: str
 
 @app.post("/login")
-def login(request: LoginRequest):
+def login(request: LoginRequest, x_gateway_auth_secret: str = Header(default="")):
+    if not secrets.compare_digest(
+            x_gateway_auth_secret,
+            AUTH_INTROSPECTION_SECRET
+        ):
+            raise HTTPException(
+                status_code=403,
+                detail="Gateway no autorizado"
+            )
     user = USERS.get(request.username)
     if user is None:
         raise HTTPException(
