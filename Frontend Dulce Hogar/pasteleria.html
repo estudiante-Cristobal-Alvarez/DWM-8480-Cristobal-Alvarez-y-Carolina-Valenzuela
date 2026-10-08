@@ -21,34 +21,44 @@
         rel="stylesheet"
         href="css/estilo.css"
     >
+    <link 
+        rel="stylesheet" 
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    >
 
 </head>
-
 <body>
 
     <!-- Encabezado -->
     <header class="encabezado">
+
         <div class="container">
+
             <h1>Dulce Hogar</h1>
-            <p>Nuestra Pastelería</p>
+
+            <p>
+                Pastelería
+            </p>
+
         </div>
+
     </header>
 
 
     
-    <!-- navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark navegacion">
+<!-- Navegación Fija -->
+    <nav class="navbar navbar-expand-lg navbar-dark navegacion sticky-top">
         <div class="container">
-            <a class="navbar-brand" href="index.html">Dulce Hogar</a>
+            <a class="navbar-brand fw-bold fs-3" href="index.html">Dulce Hogar</a>
 
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
             <div class="collapse navbar-collapse" id="menu">
-                <ul class="navbar-nav ms-auto">
+                <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-2">
                     <li class="nav-item">
-                        <a class="nav-link" href="index.html">Inicio</a>
+                        <a class="nav-link active" href="index.html">Inicio</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="bolleria.html">Facturas</a>
@@ -62,12 +72,18 @@
                     <li class="nav-item">
                         <a class="nav-link" href="contacto.html">Contacto</a>
                     </li>
+                    <li class="nav-item ms-lg-2 mt-2 mt-lg-0">
+                        <button type="button" class="nav-login-btn" id="openLoginBtn">
+                            <i class="bi bi-person-fill"></i>
+                            <span>Iniciar Sesión</span>
+                        </button>
+                    </li>
                 </ul>
             </div>
         </div>
     </nav>
-
-    <!-- CONTENIDO PRINCIPAL -->
+    
+<!-- CONTENIDO PRINCIPAL -->
     <main class="container my-5">
 
         <h2 id="titulo-categoria" class="titulo-seccion">
@@ -82,56 +98,124 @@
         <div id="lista-productos" class="productos-grid">
         </div>
 
-    </main>
-
-    <!-- FOOTER -->
-    <footer style="background-color: #AA3939;" class="text-white pt-4 pb-3 mt-5">
+<!-- FOOTER -->
+    <footer class="footer-sitio">
         <div class="container">
             <div class="row text-center g-3">
+                
+                <!-- CAJA 1: DULCE HOGAR -->
                 <div class="col-12 col-md-3">
-                    <div class="p-3 bg-white rounded-3 shadow-sm h-100 d-flex flex-column justify-content-between align-items-center">
-                        <h5 class="fw-bold m-0 my-2" style="color: #AA3939;">Dulce Hogar</h5>
-                        <a href="contacto.html" class="btn text-white w-100 btn-sm rounded-2 py-1" style="background-color: #AA3939;">Conócenos</a>
+                    <div class="footer-card">
+                        <h5 class="footer-title">Dulce Hogar</h5>
+                        <a href="contacto.html" class="btn boton-principal btn-sm w-100 mt-2">Conócenos</a>
                     </div>
                 </div>
+
+                <!-- CAJA 2: HORARIOS DE ATENCIÓN -->
                 <div class="col-12 col-md-3">
-                    <div class="p-3 bg-white rounded-3 shadow-sm h-100 d-flex flex-column justify-content-between align-items-center">
-                        <p class="small text-dark fw-bold m-0">Horarios de atención</p>
-                        <p class="small text-muted m-0" style="font-size: 0.8rem;">Lun - Sáb: 07:00 - 21:00 hrs</p>
-                        <div class="d-flex justify-content-center gap-3 fs-4 my-1" style="color: #AA3939;">
-                            <i class="bi bi-house-door-fill"></i>
+                    <div class="footer-card">
+                        <p class="footer-heading">Horarios de atención</p>
+                        <p class="footer-text">Lun - Sáb: 07:00 - 21:00 hrs</p>
+                        <div class="footer-icons">
                             <i class="bi bi-clock-fill"></i>
+                            <i class="bi bi-shop"></i>
                         </div>
                     </div>
                 </div>
+
+                <!-- CAJA 3: CONTACTO Y CONSULTAS -->
                 <div class="col-12 col-md-3">
-                    <div class="p-3 bg-white rounded-3 shadow-sm h-100 d-flex flex-column justify-content-between align-items-center">
-                        <p class="small text-dark fw-bold m-0 leading-tight">Consultas / Sugerencias / Reclamos / Reseñas</p>
-                        <div class="fs-4 my-1" style="color: #AA3939;">
-                            <a href="contacto.html" style="color: #AA3939;"><i class="bi bi-telephone-fill"></i></a>
+                    <div class="footer-card">
+                        <p class="footer-heading">Atención al Cliente</p>
+                        <p class="footer-text">Consultas y Reclamos</p>
+                        <div class="footer-icons">
+                            <a href="tel:+56912345678" aria-label="Teléfono"><i class="bi bi-telephone-fill"></i></a>
+                            <a href="contacto.html" aria-label="Correo"><i class="bi bi-envelope-fill"></i></a>
                         </div>
                     </div>
                 </div>
+
+                <!-- CAJA 4: REDES SOCIALES -->
                 <div class="col-12 col-md-3">
-                    <div class="p-3 bg-white rounded-3 shadow-sm h-100 d-flex flex-column justify-content-between align-items-center">
-                        <p class="small text-dark fw-bold m-0 mb-1">Redes Sociales</p>
-                        <div class="d-flex justify-content-center gap-3 fs-4 my-1" style="color: #AA3939;">
-                            <a href="mailto:contacto@dulcehogar.cl" style="color: #AA3939;"><i class="bi bi-envelope-fill"></i></a>
-                            <a href="#" style="color: #AA3939;"><i class="bi bi-facebook"></i></a>
-                            <a href="#" style="color: #AA3939;"><i class="bi bi-instagram"></i></a>
+                    <div class="footer-card">
+                        <p class="footer-heading">Redes Sociales</p>
+                        <p class="footer-text">¡Síguenos!</p>
+                        <div class="footer-icons">
+                            <a href="#" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+                            <a href="#" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+                            <a href="#" aria-label="WhatsApp"><i class="bi bi-whatsapp"></i></a>
                         </div>
                     </div>
                 </div>
+
             </div>
-            <p class="text-center text-white small mb-0 mt-4" style="font-size: 0.8rem;">DulceHogar@2026.cl - Todos los derechos reservados</p>
+
+            <p class="footer-copyright">
+                DulceHogar@2026.cl - Todos los derechos reservados
+            </p>
         </div>
     </footer>
+
+    <!-- Código del modal de inicio de sesión -->
+    <div class="login-modal-overlay" id="loginModal" aria-hidden="true">
+        <div class="login-modal-container">
+            <button type="button" class="login-modal-close" id="closeLoginBtn" aria-label="Cerrar">&times;</button>
+            
+            <div class="login-modal-header">
+                <h2>Iniciar Sesión</h2>
+                <p>Ingresa a tu cuenta de Dulce Hogar</p>
+            </div>
+
+            <form class="login-form" id="loginForm" onsubmit="event.preventDefault();">
+                <div class="form-group">
+                    <label for="loginEmail">Correo electrónico</label>
+                    <input type="email" id="loginEmail" name="email" placeholder="ejemplo@correo.com" required />
+                </div>
+
+                <div class="form-group">
+                    <label for="loginPassword">Contraseña</label>
+                    <input type="password" id="loginPassword" name="password" placeholder="••••••••" required />
+                </div>
+
+                <div class="form-options">
+                    <label class="remember-me">
+                        <input type="checkbox" name="remember" />
+                        <span>Recordarme</span>
+                    </label>
+                    <a href="#" class="forgot-password">¿Olvidaste tu contraseña?</a>
+                </div>
+
+                <button type="submit" class="btn-login-submit">Ingresar</button>
+            </form>
+
+            <div class="login-modal-footer">
+                <p>¿No tienes una cuenta? <a href="#">Regístrate</a></p>
+            </div>
+        </div>
+    </div>
 
     <!-- Carga del script unificado -->
     <script src="js/pasteleria.js"></script>
 
     <!-- BOOTSTRAP -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Script para abir/cerrar el modal -->
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const openLoginBtn = document.getElementById('openLoginBtn');
+        const closeLoginBtn = document.getElementById('closeLoginBtn');
+        const loginModal = document.getElementById('loginModal');
+
+        if (openLoginBtn && closeLoginBtn && loginModal) {
+          openLoginBtn.addEventListener('click', () => loginModal.classList.add('active'));
+          closeLoginBtn.addEventListener('click', () => loginModal.classList.remove('active'));
+          loginModal.addEventListener('click', (e) => {
+            if (e.target === loginModal) loginModal.classList.remove('active');
+          });
+        }
+      });
+    </script>
 
 </body>
 </html>
