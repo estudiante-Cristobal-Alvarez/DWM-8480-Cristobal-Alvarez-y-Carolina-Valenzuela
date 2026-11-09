@@ -1,1 +1,16 @@
 node_modules/
+# Backend Dulce Hogar - Evaluacion 2
+__pycache__/
+*.pyc
+*.db
+*.db-journal
+*.db-wal
+*.db-shm
+.env
+.env.*
+.venv/
+venv/
+
+# Versiones de respaldo del backend
+main_respaldo.py
+models_respaldo.py
