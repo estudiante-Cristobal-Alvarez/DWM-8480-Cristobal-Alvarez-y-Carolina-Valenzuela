@@ -78,3 +78,83 @@ workspace "Dulce Hogar" "Arquitectura del backend de Dulce Hogar" {
 
         sistema.orders -> sistema.clients "Valida clientes" "HTTP/JSON"
         sistema.orders -> sistema.inventory "Verifica disponibilidad" "gRPC"
+
+        sistema.payments -> sistema.orders "Actualiza estado de pago" "HTTP/JSON"
+
+        sistema.auth -> sistema.vault "Obtiene clave de firma JWT" "HTTP/Vault API"
+        sistema.gateway -> sistema.vault "Obtiene clave para validar JWT" "HTTP/Vault API"
+
+        sistema.auth -> sistema.dbAuth "Lee y escribe usuarios"
+        sistema.inventory -> sistema.dbInventory "Lee productos"
+        sistema.orders -> sistema.dbOrders "Lee y escribe pedidos"
+        sistema.clients -> sistema.dbClients "Lee y escribe clientes"
+        sistema.payments -> sistema.dbPayments "Lee y escribe pagos"
+    }
+
+    views {
+        systemContext sistema "C1_Contexto" {
+            title "C1 - Contexto del sistema Dulce Hogar"
+            include *
+            autoLayout lr
+        }
+
+        container sistema "C2_Contenedores" {
+            title "C2 - Arquitectura de microservicios Dulce Hogar"
+            include *
+            autoLayout lr
+        }
+        
+        component sistema.gateway "C3_Gateway" {
+            title "C3 - Componentes del Gateway GraphQL"
+            include *
+            autoLayout lr
+        }
+        
+        dynamic sistema "D_Registro_Pedido" {
+            title "Flujo - Registro de pedido en Dulce Hogar"
+
+            1: sistema.orders -> sistema.clients "Valida la existencia del cliente" "HTTP/JSON"
+            2: sistema.orders -> sistema.inventory "Comprueba disponibilidad del producto" "gRPC"
+            3: sistema.orders -> sistema.dbOrders "Guarda pedido y detalles"
+
+            autoLayout lr
+        }
+        
+         dynamic sistema "D_Consulta_Protegida" {
+            title "Flujo - Consulta protegida de pedidos con JWT"
+
+            1: cliente -> sistema.gateway "Consulta un pedido con JWT" "HTTP/GraphQL"
+            2: sistema.gateway -> sistema.orders "Obtiene el pedido solicitado" "HTTP/JSON"
+            3: sistema.gateway -> sistema.clients "Consulta el cliente asociado al pedido" "HTTP/JSON"
+
+            autoLayout lr
+        }
+
+
+        styles {
+            element "Person" {
+                shape person
+                background #56718A
+                color #FFFFFF
+            }
+
+            element "Software System" {
+                shape roundedbox
+                background #173B5D
+                color #FFFFFF
+            }
+
+            element "Container" {
+                shape roundedbox
+                background #DCEAF7
+                color #173B5D
+            }
+
+            element "Database" {
+                shape cylinder
+                background #E5EAF0
+                color #243F56
+            }
+        }
+    }
+}
