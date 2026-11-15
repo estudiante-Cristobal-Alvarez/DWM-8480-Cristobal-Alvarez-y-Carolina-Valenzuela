@@ -5,6 +5,7 @@ import httpx
 
 
 from fastapi import FastAPI, Depends, HTTPException, status
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, EmailStr, Field
 from sqlalchemy.orm import Session
 from sqlalchemy import select
@@ -75,6 +76,16 @@ app = FastAPI(
     title="Dulce Hogar - Auth Service",
     description="Servicio de autenticación de usuarios",
     version="1.0.0"
+)
+# Permitir solicitudes desde el frontend de Dulce Hogar
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "http://127.0.0.1:5500"
+    ],
+    allow_credentials=False,
+    allow_methods=["GET", "POST"],
+    allow_headers=["Content-Type", "Authorization"]
 )
 
 # Crear las tablas si todavía no existen
