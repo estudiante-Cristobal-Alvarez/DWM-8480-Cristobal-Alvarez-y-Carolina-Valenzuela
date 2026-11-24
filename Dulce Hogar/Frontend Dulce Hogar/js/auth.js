@@ -1,5 +1,5 @@
 // Dirección del servicio de autenticación
-const AUTH_API_URL = "http://127.0.0.1:8001";
+const AUTH_API_URL = "http://127.0.0.1:8101";
 
 document.addEventListener("DOMContentLoaded", () => {
 
@@ -162,11 +162,8 @@ document.addEventListener("DOMContentLoaded", () => {
             );
 
             // Actualizar botón del menú
-            if (openLoginBtn) {
-
-                openLoginBtn.textContent =
-                    `Hola, ${datos.usuario.nombre}`;
-
+            if (window.dulceHogarActualizarSesion) {
+                window.dulceHogarActualizarSesion();
             }
 
         } catch (error) {
