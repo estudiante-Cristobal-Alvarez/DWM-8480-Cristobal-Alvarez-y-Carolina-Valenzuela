@@ -46,11 +46,11 @@ def serve():
     inventory_pb2_grpc.add_InventoryServiceServicer_to_server(
         InventoryServiceServicer(), server
     )
-    puerto = server.add_insecure_port("127.0.0.1:50051")
+    puerto = server.add_insecure_port("0.0.0.0:50051")
     if puerto == 0:
         raise RuntimeError("No se pudo abrir el puerto gRPC 50051")
     server.start()
-    print("Servidor gRPC de Inventory disponible en 127.0.0.1:50051")
+    print("Servidor gRPC de Inventory disponible en el puerto 50051")
     try:
         server.wait_for_termination()
     except KeyboardInterrupt:

@@ -1,16 +1,25 @@
-node_modules/
-# Backend Dulce Hogar - Evaluacion 2
+.git
+.gitignore
 __pycache__/
 *.pyc
+.venv/
+venv/
+.env
+.env.*
 *.db
 *.db-journal
 *.db-wal
 *.db-shm
-.env
-.env.*
-.venv/
-venv/
+respaldos_docker/
+respaldos_migracion/
+.pytest_cache/
+vault.exe
 
-# Versiones de respaldo del backend
-main_respaldo.py
-models_respaldo.py
+# Dependencias de Node.js
+node_modules/
+
+# Copias de respaldo del codigo Python
+*_respaldo.py
+
+# Ejecutable local de HashiCorp Vault
+vault.exe

@@ -2,6 +2,7 @@ import os
 from datetime import datetime, timedelta, timezone
 import jwt
 import httpx
+import logging
 
 
 from fastapi import FastAPI, Depends, HTTPException, status
@@ -12,6 +13,8 @@ from pwdlib import PasswordHash
 
 from .database import SessionLocal, engine, Base
 from .models import Usuario
+
+logger = logging.getLogger("uvicorn.error")
 
 # Configuración de HashiCorp Vault
 VAULT_ADDR = os.getenv("VAULT_ADDR", "http://127.0.0.1:8200")
@@ -184,7 +187,9 @@ def iniciar_sesion(
     if usuario is None or not password_hash.verify(
         datos.password,
         usuario.password_hash if usuario else password_hash.hash("dummy-password")
-    ):
+        ):
+        logger.warning("[AUTENTICACION] Credenciales incorrectas")
+
         raise HTTPException(
             status_code=401,
             detail="Credenciales incorrectas"
@@ -192,13 +197,20 @@ def iniciar_sesion(
 
     # Comprobar que la cuenta esté activa
     if not usuario.activo:
+        logger.warning("[AUTENTICACION] Acceso rechazado: cuenta desactivada")
         raise HTTPException(
             status_code=403,
             detail="La cuenta está desactivada"
         )
 
         # Generar token JWT después de validar las credenciales
+    logger.info("[AUTENTICACION] Credenciales validadas correctamente")
+    logger.info("[AUTENTICACION] Cuenta activa verificada correctamente")
+
+    # Generar token JWT después de validar las credenciales
     token_acceso = crear_token_acceso(usuario)
+
+    logger.info("[SEGURIDAD] Token JWT emitido correctamente")
 
     return {
         "mensaje": "Inicio de sesión exitoso",
