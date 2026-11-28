@@ -1,5 +1,5 @@
 // Dirección del servicio de autenticación
-const AUTH_API_URL = "http://127.0.0.1:8001";
+const AUTH_API_URL = "http://127.0.0.1:8101";
 
 document.addEventListener("DOMContentLoaded", () => {
 

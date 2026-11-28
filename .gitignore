@@ -1,14 +1,33 @@
+# Dependencias de Node.js
 node_modules/
+
 # Archivos locales de Dulce Hogar
 *.db
 *.sqlite
 *.sqlite3
-__pycache__/
-*.pyc
+*.db-journal
+*.db-wal
+*.db-shm
 docker-data/
 
-# Credenciales
+# Archivos temporales de Python
+__pycache__/
+*.pyc
+.pytest_cache/
+*_respaldo.py
+
+# Entornos virtuales
+.venv/
+venv/
+
+# Credenciales y variables de entorno
 .env
 .env.*
 !.env.example
 
+# Respaldos locales
+respaldos_docker/
+respaldos_migracion/
+
+# Ejecutable local de Vault
+vault.exe
