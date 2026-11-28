@@ -1,0 +1,107 @@
+services:
+  frontend:
+    build:
+      context: "../Frontend Dulce Hogar"
+      dockerfile: Dockerfile
+    ports:
+      - "8080:80"
+    depends_on:
+      - gateway
+
+  auth:
+    build: .
+    command: python -m uvicorn services.auth.main:app --host 0.0.0.0 --port 8001
+    ports:
+      - "8101:8001"
+    environment:
+      VAULT_ADDR: http://host.docker.internal:8200
+      VAULT_TOKEN: ${VAULT_TOKEN:?VAULT_TOKEN no configurado}
+    volumes:
+      - ./services/auth/auth.db:/app/services/auth/auth.db
+
+  gateway:
+    build: .
+    command: python -m uvicorn services.gateway.main:app --host 0.0.0.0 --port 8000
+    ports:
+      - "8100:8000"
+    environment:
+      VAULT_ADDR: http://host.docker.internal:8200
+      VAULT_TOKEN: ${VAULT_TOKEN:?VAULT_TOKEN no configurado}
+      ORDERS_URL: http://orders:9002
+      INVENTORY_URL: http://inventory:9001
+      CLIENTS_URL: http://clients:9003
+      ORDERS_INTERNAL_SECRET: ${ORDERS_INTERNAL_SECRET:?ORDERS_INTERNAL_SECRET no configurado}
+      CLIENTS_INTERNAL_SECRET: ${CLIENTS_INTERNAL_SECRET:?CLIENTS_INTERNAL_SECRET no configurado}
+    depends_on:
+      - auth
+      - inventory
+      - orders
+      - clients
+
+  inventory:
+    build: .
+    command: sh services/inventory/start.sh
+    ports:
+      - "9101:9001"
+    volumes:
+      - ./services/inventory/inventory.db:/app/services/inventory/inventory.db
+
+  orders:
+    build: .
+    command: python -m uvicorn services.orders.main:app --host 0.0.0.0 --port 9002
+    ports:
+    - "9102:9002"
+    environment:
+      CLIENTS_URL: http://clients:9003
+      CLIENTS_INTERNAL_SECRET: ${CLIENTS_INTERNAL_SECRET:?CLIENTS_INTERNAL_SECRET no configurado}
+      ORDERS_INTERNAL_SECRET: ${ORDERS_INTERNAL_SECRET:?ORDERS_INTERNAL_SECRET no configurado}
+      PAYMENTS_INTERNAL_SECRET: ${PAYMENTS_INTERNAL_SECRET:?PAYMENTS_INTERNAL_SECRET no configurado}
+      GRPC_INVENTORY_URL: inventory:50051
+      DATABASE_URL: postgresql+psycopg://dulcehogar:${POSTGRES_PASSWORD}@postgres:5432/dulcehogar_orders
+    volumes:
+    - ./services/orders/orders.db:/app/services/orders/orders.db
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  clients:
+    build: .
+    command: python -m uvicorn services.clients.main:app --host 0.0.0.0 --port 9003
+    ports:
+      - "9103:9003"
+    environment:
+      CLIENTS_INTERNAL_SECRET: ${CLIENTS_INTERNAL_SECRET:?CLIENTS_INTERNAL_SECRET no configurado}
+    volumes:
+      - ./services/clients/clients.db:/app/services/clients/clients.db
+
+  payments:
+    build: .
+    command: python -m uvicorn services.payments.main:app --host 0.0.0.0 --port 9004
+    ports:
+      - "9104:9004"
+    environment:
+      ORDERS_URL: http://orders:9002
+      ORDERS_INTERNAL_SECRET: ${ORDERS_INTERNAL_SECRET:?ORDERS_INTERNAL_SECRET no configurado}
+      PAYMENTS_INTERNAL_SECRET: ${PAYMENTS_INTERNAL_SECRET:?PAYMENTS_INTERNAL_SECRET no configurado}
+    volumes:
+      - ./services/payments/payments.db:/app/services/payments/payments.db
+    depends_on:
+      - orders
+
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: dulcehogar_orders
+      POSTGRES_USER: dulcehogar
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?POSTGRES_PASSWORD no configurado}
+    volumes:
+      - postgres_orders_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U dulcehogar -d dulcehogar_orders"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    restart: unless-stopped
+
+volumes:
+  postgres_orders_data:

@@ -25,9 +25,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-    // ==========================================
     // CAMBIAR ENTRE LOGIN Y REGISTRO
-    // ==========================================
 
     // Mostrar el formulario de registro
     if (showRegisterBtn && loginSection && registerSection) {
@@ -65,9 +63,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-    // ==========================================
     // INICIO DE SESIÓN
-    // ==========================================
 
     loginForm.addEventListener("submit", async (event) => {
 
@@ -162,11 +158,8 @@ document.addEventListener("DOMContentLoaded", () => {
             );
 
             // Actualizar botón del menú
-            if (openLoginBtn) {
-
-                openLoginBtn.textContent =
-                    `Hola, ${datos.usuario.nombre}`;
-
+            if (window.dulceHogarActualizarSesion) {
+                window.dulceHogarActualizarSesion();
             }
 
         } catch (error) {
@@ -185,10 +178,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     });
 
-
-    // ==========================================
-    // REGISTRO DE USUARIOS
-    // ==========================================
 
     if (registerForm) {
 

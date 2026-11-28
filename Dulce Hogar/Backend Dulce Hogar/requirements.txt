@@ -12,3 +12,4 @@ protobuf==7.36.2
 pydantic==2.13.5
 email-validator==2.3.0
 psutil==7.2.2
+psycopg[binary]>=3.2,<4

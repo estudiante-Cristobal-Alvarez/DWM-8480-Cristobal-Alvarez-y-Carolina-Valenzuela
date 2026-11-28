@@ -1,4 +1,5 @@
 import os
+import logging
 from typing import List, Optional
 import strawberry
 import httpx
@@ -6,6 +7,7 @@ import jwt
 
 from strawberry.types import Info
 from fastapi import FastAPI, Request
+from fastapi.middleware.cors import CORSMiddleware
 from strawberry.fastapi import GraphQLRouter
 from strawberry.extensions import QueryDepthLimiter
 from strawberry.extensions import AddValidationRules
@@ -29,6 +31,7 @@ VAULT_TOKEN = os.getenv("VAULT_TOKEN")
 
 # Configuración JWT
 JWT_ALGORITHM = "HS256"
+logger = logging.getLogger("uvicorn.error")
 
 def obtener_clave_jwt():
     if not VAULT_TOKEN:
@@ -37,12 +40,12 @@ def obtener_clave_jwt():
         )
 
     try:
+        logger.info("[SEGURIDAD] Consultando clave JWT en Vault")
         respuesta = httpx.get(
             f"{VAULT_ADDR}/v1/secret/data/auth",
             headers={"X-Vault-Token": VAULT_TOKEN},
             timeout=5.0
         )
-
         respuesta.raise_for_status()
 
         datos = respuesta.json()
@@ -51,6 +54,7 @@ def obtener_clave_jwt():
         if not clave_jwt:
             raise ValueError("La clave JWT está vacía")
 
+        logger.info("[SEGURIDAD] Clave JWT obtenida correctamente desde Vault")
         return clave_jwt
 
     except (httpx.HTTPError, KeyError, ValueError) as error:
@@ -69,14 +73,17 @@ def validar_token_jwt(token: str) -> dict:
             options={"require": ["sub", "exp", "iat"]}
         )
 
+        logger.info("[SEGURIDAD] Token JWT validado correctamente")
         return datos
 
     except jwt.ExpiredSignatureError as error:
+        logger.warning("[SEGURIDAD] Acceso rechazado: token JWT expirado")
         raise ValueError(
             "El token JWT ha expirado"
         ) from error
 
     except jwt.InvalidTokenError as error:
+        logger.warning("[SEGURIDAD] Acceso rechazado: token JWT invalido")
         raise ValueError(
             "El token JWT no es válido"
         ) from error
@@ -84,7 +91,7 @@ def validar_token_jwt(token: str) -> dict:
 async def obtener_contexto(request: Request) -> dict:
     autorizacion = request.headers.get("Authorization", "")
 
-    if not autorizacion.startswith("Bearer "):
+    if not autorizacion.startswith("Bearer"):
         return {
             "usuario": None,
             "error_autenticacion": "Se requiere un token Bearer"
@@ -190,6 +197,7 @@ async def obtener_pedido_autorizado(
 
     # Consultar Orders Service
     try:
+        logger.info("[ENRUTAMIENTO] Enviando solicitud a Orders Service")
         async with httpx.AsyncClient(timeout=5.0) as client:
             response = await client.get(
                 f"{ORDERS_URL}/orders/{order_id}",
@@ -201,6 +209,10 @@ async def obtener_pedido_autorizado(
         raise ValueError(
             "Orders Service no está disponible"
         )
+
+    logger.info(
+    "[ENRUTAMIENTO] Orders Service respondio HTTP %s",
+    response.status_code)
 
     if response.status_code == 404:
         return None
@@ -368,7 +380,7 @@ class Query:
             codigo_transaccion=pedido.codigo_transaccion,
             productos=productos
         )
-        
+
 # Aplicación GraphQL
 
 schema = strawberry.Schema(
@@ -381,6 +393,17 @@ schema = strawberry.Schema(
 
 app = FastAPI(
     title="Dulce Hogar - GraphQL Gateway"
+)
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "http://127.0.0.1:8080",
+        "http://localhost:8080"
+    ],
+    allow_credentials=False,
+    allow_methods=["GET", "POST", "OPTIONS"],
+    allow_headers=["Content-Type", "Authorization"]
 )
 
 graphql_app = GraphQLRouter(schema, context_getter=obtener_contexto)

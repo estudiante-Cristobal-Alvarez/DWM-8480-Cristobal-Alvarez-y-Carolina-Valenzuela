@@ -254,6 +254,25 @@ function mostrarProductos() {
     `;
 
     contenedor.appendChild(tarjeta);
+    // Botón para agregar el producto al carrito
+    const botonAgregar = document.createElement("button");
+
+    botonAgregar.type = "button";
+    botonAgregar.className = "boton-producto";
+    botonAgregar.textContent = "Agregar al carrito";
+
+    botonAgregar.addEventListener("click", () => {
+        try {
+            agregarAlCarrito(producto, 1);
+
+            alert(`${producto.nombre} agregado al carrito.`);
+
+        } catch (error) {
+            alert(error.message);
+        }
+    });
+
+    tarjeta.querySelector(".producto-info").appendChild(botonAgregar);
 });
 }
 mostrarProductos();

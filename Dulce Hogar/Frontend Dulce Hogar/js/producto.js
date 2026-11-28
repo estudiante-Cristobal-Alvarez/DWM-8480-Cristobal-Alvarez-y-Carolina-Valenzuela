@@ -383,6 +383,14 @@ if (producto) {
                         <p><strong>Categoría:</strong> ${nombreCategoria(producto.categoria)}</p>
                         <p>${producto.descripcion}</p>
                         <p class="precio">${formatearPrecio(producto.precio)}</p>
+                        <button
+                            type="button"
+                            class="btn boton-principal"
+                            id="agregarProductoDetalle"
+                        >
+                            <i class="bi bi-cart-plus"></i>
+                            Agregar al carrito
+                        </button>
                         <a href="${rutaCatalogo(producto.categoria)}" class="btn boton-principal">
                             Volver al catálogo
                         </a>
@@ -397,4 +405,98 @@ if (producto) {
             Producto no encontrado. <a href="index.html">Volver al inicio</a>
         </div>
     `;
+}
+
+const botonAgregarDetalle = document.getElementById(
+    "agregarProductoDetalle"
+);
+
+if (botonAgregarDetalle && producto) {
+
+    botonAgregarDetalle.addEventListener("click", () => {
+
+        try {
+            agregarAlCarrito(producto, 1);
+
+            alert(`${producto.nombre} agregado al carrito.`);
+
+        } catch (error) {
+            alert(error.message);
+        }
+
+    });
+
+}
+
+// Consulta de inventario mediante GraphQL
+const GATEWAY_API_URL = "http://127.0.0.1:8100/graphql";
+
+async function consultarInventario() {
+    const resultado = document.getElementById("resultado-inventario");
+
+    resultado.textContent = "Consultando inventario...";
+
+    try {
+        const respuesta = await fetch(GATEWAY_API_URL, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                query: `
+                    query {
+                        producto(productId: 1) {
+                            id
+                            nombre
+                            categoria
+                            precio
+                            disponible
+                        }
+                    }
+                `
+            })
+        });
+
+        if (!respuesta.ok) {
+            throw new Error(`Error HTTP: ${respuesta.status}`);
+        }
+
+        const datos = await respuesta.json();
+
+        if (datos.errors) {
+            throw new Error(datos.errors[0].message);
+        }
+
+        const productoInventario = datos.data.producto;
+
+        if (!productoInventario) {
+            throw new Error("Producto no encontrado");
+        }
+
+        resultado.className = "alert alert-success";
+        resultado.style.whiteSpace = "pre-line";
+
+        resultado.textContent = [
+            `ID: ${productoInventario.id}`,
+            `Producto: ${productoInventario.nombre}`,
+            `Categoría: ${productoInventario.categoria}`,
+            `Precio: ${formatearPrecio(productoInventario.precio)}`,
+            `Disponible: ${productoInventario.disponible ? "Sí" : "No"}`,
+            "Origen: API Gateway - Inventory Service"
+        ].join("\n");
+
+        console.info("Consulta GraphQL realizada correctamente");
+
+    } catch (error) {
+        resultado.className = "alert alert-danger";
+        resultado.textContent = "Error al consultar inventario: " + error.message;
+
+        console.error("Error de comunicación con API Gateway:", error);
+    }
+}
+
+const consultarInventarioBtn = document.getElementById("consultarInventarioBtn");
+
+if (consultarInventarioBtn) {
+    consultarInventarioBtn.addEventListener("click", consultarInventario);
 }
