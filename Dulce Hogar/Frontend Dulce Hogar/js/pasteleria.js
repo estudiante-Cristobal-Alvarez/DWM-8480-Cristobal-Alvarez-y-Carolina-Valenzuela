@@ -118,6 +118,37 @@ document.addEventListener("DOMContentLoaded", () => {
             `;
 
             contenedor.appendChild(tarjeta);
+            // Botón para agregar al carrito
+            const botonAgregar = document.createElement("button");
+
+            botonAgregar.type = "button";
+            botonAgregar.className = "boton-producto";
+            botonAgregar.textContent = "Agregar al carrito";
+
+            botonAgregar.addEventListener("click", () => {
+
+                try {
+
+                    // Agregar categoría sin modificar el producto original
+                    const productoCarrito = {
+                        ...pastel,
+                        categoria: "pasteleria"
+                    };
+
+                    agregarAlCarrito(productoCarrito, 1);
+
+                    alert(`${pastel.nombre} agregado al carrito.`);
+
+                } catch (error) {
+
+                    alert(error.message);
+
+                }
+
+            });
+
+            // Insertar el botón dentro de la tarjeta
+            tarjeta.querySelector(".producto-info").appendChild(botonAgregar);
         });
     }
 

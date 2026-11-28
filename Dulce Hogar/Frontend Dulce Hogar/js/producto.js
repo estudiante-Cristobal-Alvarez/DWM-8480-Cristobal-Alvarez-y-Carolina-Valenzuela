@@ -383,6 +383,14 @@ if (producto) {
                         <p><strong>Categoría:</strong> ${nombreCategoria(producto.categoria)}</p>
                         <p>${producto.descripcion}</p>
                         <p class="precio">${formatearPrecio(producto.precio)}</p>
+                        <button
+                            type="button"
+                            class="btn boton-principal"
+                            id="agregarProductoDetalle"
+                        >
+                            <i class="bi bi-cart-plus"></i>
+                            Agregar al carrito
+                        </button>
                         <a href="${rutaCatalogo(producto.categoria)}" class="btn boton-principal">
                             Volver al catálogo
                         </a>
@@ -397,6 +405,27 @@ if (producto) {
             Producto no encontrado. <a href="index.html">Volver al inicio</a>
         </div>
     `;
+}
+
+const botonAgregarDetalle = document.getElementById(
+    "agregarProductoDetalle"
+);
+
+if (botonAgregarDetalle && producto) {
+
+    botonAgregarDetalle.addEventListener("click", () => {
+
+        try {
+            agregarAlCarrito(producto, 1);
+
+            alert(`${producto.nombre} agregado al carrito.`);
+
+        } catch (error) {
+            alert(error.message);
+        }
+
+    });
+
 }
 
 // Consulta de inventario mediante GraphQL

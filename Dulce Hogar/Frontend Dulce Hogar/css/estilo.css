@@ -812,3 +812,122 @@ body.bg-crema {
 .card-producto .btn:hover {
     background-color: #852222;
 }
+
+/* ==========================================
+   CARRITO DE COMPRAS - DULCE HOGAR
+   ========================================== */
+
+/* Botón del carrito en el navbar */
+.boton-carrito {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.contador-carrito {
+    background-color: var(--crema);
+    color: var(--vino);
+    border-radius: 20px;
+    padding: 2px 8px;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+/* Panel lateral */
+.panel-carrito {
+    width: min(430px, 100vw) !important;
+    background-color: var(--crema);
+}
+
+.carrito-header {
+    background-color: var(--vino);
+    color: var(--blanco);
+}
+
+/* Fila de cada producto */
+.carrito-producto {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 15px 0;
+    border-bottom: 1px solid var(--rosa-claro);
+}
+
+.carrito-imagen {
+    width: 75px;
+    height: 75px;
+    object-fit: contain;
+    background-color: white;
+    border-radius: 8px;
+}
+
+.carrito-informacion {
+    flex: 1;
+    min-width: 0;
+}
+
+.carrito-nombre {
+    color: var(--vino);
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.carrito-precio {
+    font-size: 0.85rem;
+    color: var(--texto);
+    margin-bottom: 8px;
+}
+
+/* Controles de cantidad */
+.carrito-controles {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 8px;
+}
+
+.carrito-controles button {
+    width: 28px;
+    height: 28px;
+    background-color: var(--vino);
+    color: var(--blanco);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.carrito-controles button:hover {
+    background-color: var(--rosa);
+}
+
+.carrito-controles button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.carrito-cantidad {
+    font-weight: bold;
+}
+
+.carrito-eliminar {
+    background: none;
+    border: none;
+    color: var(--vino);
+    text-decoration: underline;
+    font-size: 0.85rem;
+    cursor: pointer;
+    padding: 0;
+}
+
+.carrito-subtotal {
+    color: var(--vino);
+    font-size: 0.9rem;
+    white-space: nowrap;
+}
+
+/* Parte inferior del carrito */
+.carrito-footer {
+    padding: 20px;
+    background-color: white;
+    border-top: 2px solid var(--rosa-claro);
+}

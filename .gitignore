@@ -1,25 +1,33 @@
-.git
-.gitignore
-__pycache__/
-*.pyc
-.venv/
-venv/
-.env
-.env.*
-*.db
-*.db-journal
-*.db-wal
-*.db-shm
-respaldos_docker/
-respaldos_migracion/
-.pytest_cache/
-vault.exe
-
 # Dependencias de Node.js
 node_modules/
 
-# Copias de respaldo del codigo Python
+# Archivos locales de Dulce Hogar
+*.db
+*.sqlite
+*.sqlite3
+*.db-journal
+*.db-wal
+*.db-shm
+docker-data/
+
+# Archivos temporales de Python
+__pycache__/
+*.pyc
+.pytest_cache/
 *_respaldo.py
 
-# Ejecutable local de HashiCorp Vault
+# Entornos virtuales
+.venv/
+venv/
+
+# Credenciales y variables de entorno
+.env
+.env.*
+!.env.example
+
+# Respaldos locales
+respaldos_docker/
+respaldos_migracion/
+
+# Ejecutable local de Vault
 vault.exe
